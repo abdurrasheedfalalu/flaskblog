@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    {% if title %}
+        <title>Flask Blog - {{ title }}</title>
+    {% else %}
+        <title>Flask Blog</title>
+    {% endif %}
+</head>
+<nav class="navbar navbar-expand-md navbar-light bg-info">
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="navbar-brand">Flask Blog</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <div class="navbar-nav me-auto">
+                <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
+                <a href="#"  class="nav-item nav-link">About</a>
+            </div>
+            <div class="navbar-nav">
+                <a href="{{ url_for('auth.login') }}" class="nav-item nav-link">Login</a>
+                <a href="#"  class="nav-item nav-link">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<body>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissable"alert-dissmiss >
+                                <span>{{ message }}</span>
+                                <button class="btn-close float-end" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block content %} {% endblock %}
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+</body>
+</html>
