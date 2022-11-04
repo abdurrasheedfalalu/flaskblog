@@ -6,6 +6,19 @@
             <fieldset>
                 <legend class="border-bottom">{{ legend }}</legend>
                 <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
                         {{ form.email(class="form-control is-invalid") }}
@@ -31,8 +44,18 @@
                         {{ form.password(class="form-control") }}
                     {% endif %}
                 </div>
-                <div class="form-group mt-3">
-                    {{ form.remember (class="form-control-input") }} {{ form.remember.label (class="form-control-label") }}
+                <div class="form-group">
+                    {{ form.confirm_password.label(class="form-control-label") }}
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.confirm_password(class="form-control") }}
+                    {% endif %}
                 </div>
             </fieldset>
             <div class="form-group mt-3">
@@ -41,6 +64,6 @@
         </div>
     </form>
     <div class="border-bottom mt-3">
-        You don`t have an account? <a href="{{ url_for('auth.register') }}">Sign Up</a>
+        Do you have an account? <a href="{{ url_for('auth.login') }}">Sign In</a>
     </div>
 {% endblock %}

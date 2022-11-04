@@ -3,8 +3,18 @@
     padding: 10px;
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.288);
     margin-top: 15px;
+    background-color:#fff;
 }
 
 .title {
     font-family: 'Times New Roman', Times, serif;
+}
+
+.link {
+    text-decoration: none;
+}
+.img {
+    width: 100px;
+    border: 1px solid rgb(158, 151, 151);
+    border-radius: 50px;
 }

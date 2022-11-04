@@ -1,11 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>Hello! {{ current_user.username.capitalize() }}</h1>
+    {% if user == current_user %}
+        <h2>Welcome {{ user.username.capitalize() }}</h2>
+    {% else %}
+        <h2>{{ user.username.capitalize() }}</h2>
+    {% endif %}
+    <hr>
+    <img src="{{ image_file }}" class="img">
     <div>
-        {% for post in posts %}
+        {% for post in user.posts %}
            <div class="content-section">
                 <h2 class="border-bottom title">{{ post.title }}</h2>
-                <h3>By: <a class="link" href="{{ url_for('blog.profile', id=post.author.id) }}">{{ post.author.username }}</a></h3>
+                <h3>By: {{ post.author.username }}</h3>
                 <p>{{ post.content }}</p>
                 <p>On: {{ post.date_posted.strftime("%d %b, %Y") }}</p>
            </div>
