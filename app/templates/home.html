@@ -1,9 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
     <h1>Hello! {{ current_user.username.capitalize() }}</h1>
-    <div>
+    <div class="mb-5">
         {% for post in posts %}
            <div class="content-section">
+                <img src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" class="img" style="width: 50px; height: 50px; float: right;">
                 <h2 class="border-bottom title">{{ post.title }}</h2>
                 <h3>By: <a class="link" href="{{ url_for('blog.profile', id=post.author.id) }}">{{ post.author.username }}</a></h3>
                 <p>{{ post.content }}</p>

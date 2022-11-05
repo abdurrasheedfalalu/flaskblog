@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import ( DataRequired, Length, Regexp, Email,
                                 EqualTo, ValidationError)
 
@@ -32,3 +33,11 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('email already exist. Choose another.')
+
+
+
+class EditProfileForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()], render_kw={'placeholder': 'Username'})
+    about = TextAreaField('About', validators=[Length(min=10, max=120)])
+    picture = FileField("Update Profile Picture", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    submit = SubmitField('Update')

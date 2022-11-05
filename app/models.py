@@ -14,6 +14,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(20), nullable=False)
     image_file = db.Column(db.String, default='vector.jpg')
+    about = db.Column(db.String, nullable=True)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def generate_password(self, password):
@@ -21,6 +23,9 @@ class User(db.Model, UserMixin):
     
     def check_password_hash(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
+
+    def is_online(self):
+        pass
 
 
     def __repr__(self) -> str:
