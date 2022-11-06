@@ -1,7 +1,8 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate
 
 from app.blog import bp
+from app.errors import error
 from app.auth import auth, login_manager
 from app.models import Post, User, db, bcrypt
 from config import Config
@@ -11,15 +12,24 @@ def create_app(test_config=None):
     app.config.from_object(Config)
     migrate = Migrate(app, db)
 
+    @app.route('/')
+    @app.route('/home')
+    def home():
+        return render_template('home.html')
+
     if test_config:
         app.config.from_mapping(test_config)
 
+    #Register extentions
     db.init_app(app)
     bcrypt.init_app(app)
     migrate.init_app(app)
     login_manager.init_app(app)
+
+    #Register blueprints
     app.register_blueprint(auth)
     app.register_blueprint(bp)
+    app.register_blueprint(error)
 
 
     @app.shell_context_processor

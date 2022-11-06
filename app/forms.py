@@ -41,3 +41,13 @@ class EditProfileForm(FlaskForm):
     about = TextAreaField('About', validators=[Length(min=10, max=120)])
     picture = FileField("Update Profile Picture", validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Update')
+
+
+class EmptyForm(FlaskForm):
+   pass
+
+
+class NewPost(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')

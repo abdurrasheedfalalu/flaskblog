@@ -30,7 +30,7 @@ def register():
         db.session.commit()
         flash('Your account has been created! You can now log in.', 'success')
         return redirect(url_for('auth.login'))
-    return render_template('register.html', form=form, title='Register', legend='Register')
+    return render_template('auth/register.html', form=form, title='Register', legend='Register')
 
 
 @auth.route('/login', methods=['POST', 'GET'])
@@ -46,10 +46,10 @@ def login():
                 flash('Login succesfully.', 'success')
                 next = request.args.get('next')
                 if not next or url_parse(next).netloc != '':
-                    next = url_for('blog.home')
+                    next = url_for('blog.posts')
                 return redirect(next)
         flash('Invalid email or password! try again.', 'danger')
-    return render_template('login.html', form=form, title='Login', legend='Login')
+    return render_template('auth/login.html', form=form, title='Login', legend='Login')
 
 
 @auth.route("/logout")

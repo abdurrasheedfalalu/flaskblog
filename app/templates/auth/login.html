@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="content-section">
+            <fieldset>
+                <legend class="border-bottom">{{ legend }}</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group mt-3">
+                    {{ form.remember (class="form-check-input") }}
+                    {{ form.remember.label (class="form-check-label") }}
+                </div>
+            </fieldset>
+            <div class="form-group mt-2">
+                {{ form.submit (class="btn btn-outline-info") }}
+            </div>
+            <small class="text-muted ms-2">
+                <a href="#" class="link ms-2 mt-5">Forget Password</a>
+            </small>
+        </div>
+    </form>
+    <div class="border-top pt-1 mt-3">
+        <small class="text-muted">
+            You don`t have an account? <a href="{{ url_for('auth.register') }}">Sign Up</a>
+        </small>
+    </div>
+{% endblock %}
