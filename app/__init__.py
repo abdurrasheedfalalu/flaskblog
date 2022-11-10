@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_login import login_required
 from flask_migrate import Migrate
 
 from app.blog import bp
@@ -14,7 +15,9 @@ def create_app(test_config=None):
 
     @app.route('/')
     @app.route('/home')
+    @login_required
     def home():
+        
         return render_template('home.html')
 
     if test_config:

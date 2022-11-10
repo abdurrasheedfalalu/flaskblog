@@ -1,3 +1,12 @@
+.content-section2 {
+    border: 1px solid rgba(0, 0, 0, 0.288);
+    padding: 10px;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.288);
+    margin-top: 15px;
+    background-color:#fff;
+    border-radius: 5px 50px 10px 5px;
+}
+
 .content-section {
     border: 1px solid rgba(0, 0, 0, 0.288);
     padding: 10px;
@@ -13,7 +22,7 @@
 .link {
     text-decoration: none;
 }
-.img {
+.imgs {
     width: 100px;
     border: 1px solid rgb(158, 151, 151);
     border-radius: 50px;

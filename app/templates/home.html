@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>Hello! {{ current_user.username.capitalize() }}</h1>
+    <h1>Hello! {{ current_user.username.capitalize() }}
+        <img src="{{ url_for('static', filename='i.gif') }}" alt="" srcset="">
+    </h1>
     <h3>You don`t have a posts</h3>
     <h4>To see a posts follow any <mark>User</mark></h4>
 {% endblock %}

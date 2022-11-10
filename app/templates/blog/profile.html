@@ -2,12 +2,14 @@
 {% block content %}
     
     <div class="profile-section">
-        <img src="{{ image_file }}" class="img" style="margin-bottom: 20px; ">
+        <img src="{{ image_file }}" class="rounded-circle" style="margin-bottom: 20px; ">
         <p>Username: {{ user.username }}</p>
         {% if user.about %}
             <p>About: {{ user.about }}</p>
         {% endif %}
-        {% if user.last_seen %}
+        {% if user.is_online() %}
+            <p>Last Seen: Online</p>
+        {% else %}
             <p>Last Seen: {{ user.last_seen.strftime("%d %b, %Y on %H:%M:%S") }}</p>
         {% endif %}
         {% if user == current_user %}
@@ -15,19 +17,37 @@
                 Edit
             </a>
         {% endif %}
+
+        {% if current_user.is_following(user)%}
+            <div>
+                <form action="{{ url_for('blog.unfollow', id = user.id) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.unfollow (class="btn btn-outline-danger")}}
+                </form>
+            </div>
+        {% elif user == current_user %}
+            <p></p>
+        {% else %}
+            <div>
+                <form action="{{ url_for('blog.follow', id = user.id) }}" method="post" class="form-group">
+                    {{ form.hidden_tag() }}
+                    {{ form.follow (class="btn btn-outline-success")}}
+                </form>
+            </div>
+        {% endif %}
     </div>
     <hr>
     <h3>User Posts</h3>
     <div class="mb-5">
         {% for post in user.posts %}
-           <div class="content-section">
-                <img src="{{ image_file }}" class="img" style="width: 50px; height: 50px; float: right;">
+           <div class="content-section2">
+                <img src="{{ image_file }}" class="rounded-circle" style="width: 50px; height: 50px; float: right;">
                 <h2 class="border-bottom title">{{ post.title }}</h2>
                 <h3>By: {{ post.author.username }}</h3>
                 <p>{{ post.content }}</p>
                 <p>On: {{ post.date_posted.strftime("%d %b, %Y") }}</p>
                 {% if user == current_user %}
-                    <a href="#" class="btn btn-outline-success">Edit</a>
+                    <a href="{{ url_for('blog.edit_post', id=post.id) }}" class="btn btn-outline-success">Edit</a>
                     <a href="#" class="btn btn-outline-danger float-end">Delete</a>
                 {% endif %}
            </div>

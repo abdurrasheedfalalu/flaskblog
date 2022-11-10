@@ -1,5 +1,4 @@
-from datetime import datetime
-from hashlib import md5
+from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import UserMixin
@@ -37,7 +36,9 @@ class User(db.Model, UserMixin):
         return bcrypt.check_password_hash(self.password_hash, password)
 
     def is_online(self):
-        pass
+        one_minute = timedelta(minutes=1)
+        return self.last_seen > datetime.utcnow() - one_minute
+
 
     def follow(self, user):
         if not self.is_following(user):
@@ -47,7 +48,7 @@ class User(db.Model, UserMixin):
             self.followed.remove(user)
     def is_following(self, user):
         return self.followed.filter(
-            followers.c.follower_id == user.id).count() > 0
+            followers.c.followed_id == user.id).count() > 0
 
     # def followed_posts(self):
     #     followed = Post.query.join(

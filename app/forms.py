@@ -44,10 +44,17 @@ class EditProfileForm(FlaskForm):
 
 
 class EmptyForm(FlaskForm):
-   pass
+   follow = SubmitField('Follow')
+   unfollow = SubmitField('Un Follow')
 
 
 class NewPost(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
+
+
+class EditPostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Edit')
