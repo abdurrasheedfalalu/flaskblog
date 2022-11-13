@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from pathlib import Path
 from flask import Blueprint, current_app, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
@@ -17,11 +18,11 @@ def before_request():
 
 
 
-@bp.route('/posts')
+@bp.route('/explore')
 @login_required
-def posts():
+def explore():
     posts = Post.query.order_by(Post.date_posted.desc()).all()
-    return render_template('blog/posts.html', title='Home', posts=posts)
+    return render_template('blog/explore.html', title='Explore', posts=posts)
 
 @bp.route("/profile/<int:id>", methods=['POST', 'GET'])
 @login_required
@@ -40,9 +41,11 @@ def profile_update(id):
             picture_file = save_picture(form.picture.data)
 
             if current_user.image_file != 'vector.jpg':
-                image = Path() / current_app.root_path / "static/profile_pics" / current_user.image_file
-                print(image)
-                image.unlink()
+                #Remove an after upload new one
+                os.remove(os.path.join(current_app.root_path, "static/profile_pics", current_user.image_file))
+                # image = Path() / current_app.root_path / "static/profile_pics" / current_user.image_file
+                # print(image)
+                # image.unlink()
 
             current_user.image_file = picture_file
         current_user.username = form.username.data
@@ -53,7 +56,7 @@ def profile_update(id):
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about.data = current_user.about
-    return render_template("blog/edit_pro.html", title=f'Edit Profile{id}', legend='Edit', form=form)
+    return render_template("blog/edit_pro.html", title='Edit Profile', legend='Edit', form=form)
 
 
 @bp.route('/new post', methods=['POST', 'GET'])
@@ -65,7 +68,7 @@ def new_post():
         db.session.add(post)
         db.session.commit()
         flash('Your post has been added successfully.', 'success')
-        return redirect(url_for('blog.posts'))
+        return redirect(url_for('home'))
     return render_template('blog/new_post.html', title='New Post', legend='New Post', form=form)
 
 
@@ -95,11 +98,11 @@ def unfollow(id):
             current_user.unfollow(user)
             db.session.commit()
             flash(f'You are unfollowing user {user.username} Now.', 'success')
-            return redirect(url_for('blog.profile', id=current_user.id))
+            return redirect(url_for('home'))
     print(form.errors)
 
 
-@bp.route('/edit_post/<int:id>', methods=['POST', 'GET'])
+@bp.route('/post/<int:id>/update', methods=['POST', 'GET'])
 def edit_post(id):
     post = Post.query.get_or_404(id) 
     form = EditPostForm()
@@ -113,3 +116,14 @@ def edit_post(id):
         form.title.data = post.title
         form.content.data = post.content
     return render_template('blog/edit_post.html', form=form, title='Edit Post', legend='Edit Post')
+
+
+@bp.route('/post/<int:id>/delete', methods=['POST', 'GET'])
+@login_required
+def delete_post(id):
+    post = Post.query.get_or_404(id)
+    if post is not None:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Your Post has been deleted.', 'danger')
+        return redirect(url_for('blog.profile', id=current_user.id))

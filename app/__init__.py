@@ -1,10 +1,10 @@
 from flask import Flask, render_template
-from flask_login import login_required
+from flask_login import current_user, login_required
 from flask_migrate import Migrate
 
 from app.blog import bp
 from app.errors import error
-from app.auth import auth, login_manager
+from app.auth import auth, login_manager, mail
 from app.models import Post, User, db, bcrypt
 from config import Config
 
@@ -17,8 +17,8 @@ def create_app(test_config=None):
     @app.route('/home')
     @login_required
     def home():
-        
-        return render_template('home.html')
+        posts = current_user.followed_posts().all()
+        return render_template('home.html', posts=posts)
 
     if test_config:
         app.config.from_mapping(test_config)
@@ -28,6 +28,7 @@ def create_app(test_config=None):
     bcrypt.init_app(app)
     migrate.init_app(app)
     login_manager.init_app(app)
+    mail.init_app(app)
 
     #Register blueprints
     app.register_blueprint(auth)

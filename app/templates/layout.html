@@ -12,7 +12,7 @@
         <title>Flask Blog</title>
     {% endif %}
 </head>
-<nav class="navbar navbar-expand-md navbar-light bg-info">
+<nav class="navbar navbar-expand-md navbar-light bg-info fixed-top">
     <div class="container">
         <a href="{{ url_for('home') }}" class="navbar-brand">Flask Blog</a>
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="nav">
             <div class="navbar-nav me-auto">
                 <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
-                <a href="{{ url_for('blog.posts') }}"  class="nav-item nav-link">Explore</a>
+                <a href="{{ url_for('blog.explore') }}"  class="nav-item nav-link">Explore</a>
             </div>
             <div class="navbar-nav">
                 {% if current_user.is_authenticated %}
@@ -52,8 +52,23 @@
                 {% endwith %}
                 {% block content %} {% endblock %}
             </div>
+            <div class="col-md-4">
+                <div class="content-section2" style="position: fixed; width: 300px;border-radius: 10px;">
+                    <h3 class="border-bottom" style="text-align: center;">Our SideBar</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-light" style=" background-color:rgb(37, 48, 85); color: aquamarine;">About Author</li>
+                        <li class="list-group-item list-group-item-light" style=" background-color:rgb(37, 48, 85); color: aquamarine;">Latest News</li>
+                        <li class="list-group-item list-group-item-light" style=" background-color:rgb(37, 48, 85); color: aquamarine;">Announcements</li>
+                        <li class="list-group-item list-group-item-light" style=" background-color:rgb(37, 48, 85); color: aquamarine;">Calenders</li>
+                        <li class="list-group-item list-group-item-light" style=" background-color:rgb(37, 48, 85); color: aquamarine;">e.t.c</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- <div class="footer">
+        <p>@Copy Right</p>
+    </div> -->
     <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 </body>
 </html>

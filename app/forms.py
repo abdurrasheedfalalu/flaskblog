@@ -46,6 +46,7 @@ class EditProfileForm(FlaskForm):
 class EmptyForm(FlaskForm):
    follow = SubmitField('Follow')
    unfollow = SubmitField('Un Follow')
+   delete = SubmitField('Delete')
 
 
 class NewPost(FlaskForm):

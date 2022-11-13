@@ -1,10 +1,13 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, current_user, login_user, logout_user
 from werkzeug.urls import url_parse
+from flask_mail import Mail
+
 
 from app.forms import LoginForm, RegistrationForm
 from app.models import User, db
 
+mail = Mail()
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
@@ -46,7 +49,7 @@ def login():
                 flash('Login succesfully.', 'success')
                 next = request.args.get('next')
                 if not next or url_parse(next).netloc != '':
-                    next = url_for('blog.posts')
+                    next = url_for('home')
                 return redirect(next)
         flash('Invalid email or password! try again.', 'danger')
     return render_template('auth/login.html', form=form, title='Login', legend='Login')

@@ -1,14 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1 class="border-bottom" style="text-align: center;">All posts</h1>
     <div class="mb-5">
         {% for post in posts %}
            <div class="content-section2">
                 <img src="{{ url_for('static', filename='profile_pics/'+post.author.image_file) }}" class="rounded-circle" style="width: 50px; height: 50px; float: right;">
-                <h2 class="border-bottom title">{{ post.title }}</h2>
-                <h3>By: <a class="link" href="{{ url_for('blog.profile', id=post.author.id) }}">{{ post.author.username }}</a></h3>
+                <h2 class="border-bottom title" style="text-shadow: 5px 5px 10px;">{{ post.title.title() }}</h2>
+                <h3>By: <a class="link" href="{{ url_for('blog.profile', id=post.author.id) }}">{{ post.author.username.title() }}</a> - <small>{{ post.date_posted.strftime("%d %b, %Y") }}</small></h3>
                 <p>{{ post.content }}</p>
-                <p>On: {{ post.date_posted.strftime("%d %b, %Y") }}</p>
            </div>
         {% endfor %}
     </div>

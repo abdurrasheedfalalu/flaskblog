@@ -2,10 +2,12 @@
 {% block content %}
     
     <div class="profile-section">
-        <img src="{{ image_file }}" class="rounded-circle" style="margin-bottom: 20px; ">
-        <p>Username: {{ user.username }}</p>
+        <img src="{{ image_file }}" class="rounded-circle mt-3" style="margin-bottom: 20px; float: left; margin-right: 10px;">
+        <h3 style="margin-left: 40%; font-family: 'Times New Roman', Times, serif;">
+            {{ user.username.title() }}
+        </h3>
         {% if user.about %}
-            <p>About: {{ user.about }}</p>
+            <p>About Me: {{ user.about }}</p>
         {% endif %}
         {% if user.is_online() %}
             <p>Last Seen: Online</p>
@@ -42,13 +44,17 @@
         {% for post in user.posts %}
            <div class="content-section2">
                 <img src="{{ image_file }}" class="rounded-circle" style="width: 50px; height: 50px; float: right;">
-                <h2 class="border-bottom title">{{ post.title }}</h2>
-                <h3>By: {{ post.author.username }}</h3>
+                <h2 class="border-bottom title" style="text-shadow: 5px 5px 10px;">{{ post.title.title() }}</h2>
+                <h3>By: {{ post.author.username.title() }} - <small>{{ post.date_posted.strftime("%d %b, %Y") }}</small></h3>
                 <p>{{ post.content }}</p>
-                <p>On: {{ post.date_posted.strftime("%d %b, %Y") }}</p>
+                <p></p>
                 {% if user == current_user %}
-                    <a href="{{ url_for('blog.edit_post', id=post.id) }}" class="btn btn-outline-success">Edit</a>
-                    <a href="#" class="btn btn-outline-danger float-end">Delete</a>
+                    <a href="{{ url_for('blog.edit_post', id=post.id) }}" class="btn btn-outline-success float-end">Edit</a>
+                    <!-- <a href="{{ url_for('blog.delete_post', id=post.id) }}" class="btn btn-outline-danger float-end">Delete</a> -->
+                    <form action="{{ url_for('blog.delete_post', id=post.id) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        {{ form.delete (class="btn btn-outline-danger")}}
+                    </form>
                 {% endif %}
            </div>
         {% endfor %}
