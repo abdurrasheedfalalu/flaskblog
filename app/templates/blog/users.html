@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div>
+        <div class="row">
+            {% for user in users %}
+                <div class="col-md-4 dec" style="margin: 5px;">
+                    <img src="{{ url_for( 'static', filename='profile_pics/'+user.image_file) }}" class="imgs mt-1">
+                    <h3 style="margin-left: 3px;">{{ user.username }}</h3>
+                </div>
+            {% endfor %}
+        </div>    
+    </div>
+{% endblock %}
