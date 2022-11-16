@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, current_user, login_user, logout_user
 from werkzeug.urls import url_parse
-from flask_mail import Mail
+
 
 
 from app.forms import LoginForm, RegistrationForm
 from app.models import User, db
 
-mail = Mail()
+
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'

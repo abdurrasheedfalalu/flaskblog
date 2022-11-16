@@ -127,3 +127,9 @@ def delete_post(id):
         db.session.commit()
         flash('Your Post has been deleted.', 'danger')
         return redirect(url_for('blog.profile', id=current_user.id))
+
+@bp.route("/users")
+@login_required
+def users():
+    users = User.query.all()
+    return render_template('blog/users.html', users=users, title='User')

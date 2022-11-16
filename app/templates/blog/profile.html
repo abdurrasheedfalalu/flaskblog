@@ -2,7 +2,7 @@
 {% block content %}
     
     <div class="profile-section">
-        <img src="{{ image_file }}" class="rounded-circle mt-3" style="margin-bottom: 20px; float: left; margin-right: 10px;">
+        <img src="{{ image_file }}" class="imgs mt-3" style="margin-bottom: 20px; float: left; margin-right: 10px;">
         <h3 style="margin-left: 40%; font-family: 'Times New Roman', Times, serif;">
             {{ user.username.title() }}
         </h3>
@@ -15,14 +15,14 @@
             <p>Last Seen: {{ user.last_seen.strftime("%d %b, %Y on %H:%M:%S") }}</p>
         {% endif %}
         {% if user == current_user %}
-            <a href="{{ url_for('blog.profile_update', id=user.id) }}" class="btn btn-outline-success">
+            <a href="{{ url_for('blog.profile_update', id=user.id) }}" class="btn btn-outline-info">
                 Edit
             </a>
         {% endif %}
 
         {% if current_user.is_following(user)%}
             <div>
-                <form action="{{ url_for('blog.unfollow', id = user.id) }}" method="post">
+                <form action="{{ url_for('blog.unfollow', id = user.id) }}" method="post" style="margin-left: 10px;">
                     {{ form.hidden_tag() }}
                     {{ form.unfollow (class="btn btn-outline-danger")}}
                 </form>
@@ -31,7 +31,7 @@
             <p></p>
         {% else %}
             <div>
-                <form action="{{ url_for('blog.follow', id = user.id) }}" method="post" class="form-group">
+                <form action="{{ url_for('blog.follow', id = user.id) }}" method="post" style="margin-left: 10px;">
                     {{ form.hidden_tag() }}
                     {{ form.follow (class="btn btn-outline-success")}}
                 </form>

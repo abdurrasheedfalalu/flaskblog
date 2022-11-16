@@ -1,6 +1,7 @@
 body {
     margin-top: 5em;
-    background-color: rgb(22, 152, 212);
+    background-color: rgb(18, 108, 150);
+    color: aquamarine;
 }
 
 
@@ -10,7 +11,7 @@ body {
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.288);
     margin-top: 15px;
     background-color:rgb(37, 48, 85);
-    border-radius: 15px 50px 15px 40px;
+    border-radius: 15px 40px;
     color: aquamarine;
     
 }
@@ -22,7 +23,7 @@ body {
     margin-top: 15px;
     background-color:rgb(37, 48, 85);
     color: aquamarine;
-    border-radius: 5px;
+    border-radius: 15px 40px;
 }
 
 .title {
@@ -34,8 +35,9 @@ body {
 }
 .imgs {
     width: 100px;
+    height: 100px;
     border: 1px solid rgb(158, 151, 151);
-    border-radius: 50px;
+    border-radius: 50%;
 }
 
 .profile-section {
@@ -45,7 +47,8 @@ body {
     margin-top: 15px;
     background-color:rgb(8, 60, 90);
     color: aquamarine;
-    border-radius: 10px;
+    border-radius: 10px 40px;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.288);
 }
 
 /* .fixed-content {
@@ -66,3 +69,8 @@ body {
     text-align: center;
  }
 
+.dec {
+    border: 1px solid;
+    border-radius: 15px 40px;
+    background-color: rgb(17, 71, 71);
+}

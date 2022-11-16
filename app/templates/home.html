@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>Hello! {{ current_user.username.title()  }}
+    <h1 style="margin-top: -30px;">Hello! {{ current_user.username.title()  }}
         <img src="{{ url_for('static', filename='i.gif') }}" alt="" srcset="">
     </h1>
     {% if posts %}

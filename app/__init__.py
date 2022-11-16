@@ -1,17 +1,21 @@
 from flask import Flask, render_template
 from flask_login import current_user, login_required
 from flask_migrate import Migrate
+from flask_mail import Mail
 
 from app.blog import bp
 from app.errors import error
-from app.auth import auth, login_manager, mail
+from app.auth import auth, login_manager
 from app.models import Post, User, db, bcrypt
 from config import Config
+
+mail = Mail()
 
 def create_app(test_config=None):
     app = Flask(__name__)
     app.config.from_object(Config)
     migrate = Migrate(app, db)
+
 
     @app.route('/')
     @app.route('/home')
