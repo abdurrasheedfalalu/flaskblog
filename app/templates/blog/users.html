@@ -5,7 +5,9 @@
             {% for user in users %}
                 <div class="col-md-4 dec" style="margin: 5px;">
                     <img src="{{ url_for( 'static', filename='profile_pics/'+user.image_file) }}" class="imgs mt-1">
-                    <h3 style="margin-left: 3px;">{{ user.username }}</h3>
+                    <h3 style="margin-left: 3px;">
+                        <a href="{{ url_for('blog.profile', id=user.id) }}">{{ user.username }}</a>
+                    </h3>
                 </div>
             {% endfor %}
         </div>    
