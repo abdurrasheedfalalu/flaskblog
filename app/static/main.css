@@ -4,6 +4,9 @@ body {
     color: aquamarine;
 }
 
+a {
+    text-decoration: none;
+}
 
 .content-section2 {
     border: 1px solid rgba(0, 0, 0, 0.288);
